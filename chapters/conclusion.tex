@@ -1,0 +1,28 @@
+\chapter{Summary of Findings}
+\label{ch:conclusion}
+
+In this thesis, we explored the development of private blockchains using the Cosmos SDK, a powerful framework for building blockchain applications. We examined the architecture, components, and functionalities of the Cosmos SDK and analyzed its relevance to blockchain-based applications. Additionally, we discussed various consensus mechanisms available in the Cosmos SDK, their security implications, and their applicability to different use cases.
+
+We delved into the design considerations for private blockchains and highlighted the importance of modeling the state and defining the logic using protobuf and gRPC. We examined the role of messages and queries as building blocks for modifying and retrieving data from the blockchain. A case study on building a private blockchain for crowdfunding further demonstrated the practical application of the concepts discussed.
+
+\section{Recommendations for Future Work}
+
+While this thesis provides a solid foundation for understanding and utilizing the Cosmos SDK for private blockchain development, there are several avenues for future exploration and improvement:
+
+    Scalability and Performance Enhancements: Investigate techniques to improve the scalability and performance of private blockchains built with the Cosmos SDK. This could involve optimizing the consensus mechanism, exploring sharding strategies, or implementing layer-2 solutions.
+
+    Security Enhancements: Conduct further research to enhance the security of private blockchains built with the Cosmos SDK. This could involve the development of advanced security measures, such as secure multi-party computation or zero-knowledge proofs, to protect sensitive data and ensure the integrity of the blockchain.
+
+    Interoperability and Cross-Chain Communication: Explore methods to enable interoperability and seamless communication between private blockchains built with the Cosmos SDK and other blockchain networks. This could involve the development of inter-chain communication protocols or the integration of interoperability standards such as the Inter-Blockchain Communication (IBC) protocol.
+
+    Usability and User Experience Improvements: Focus on enhancing the usability and user experience of private blockchain applications developed with the Cosmos SDK. This includes refining the CLI interface, developing user-friendly tools and interfaces, and providing comprehensive documentation and tutorials.
+
+    Real-World Deployments and Adoption: Further investigate real-world use cases and deployment scenarios for private blockchains built with the Cosmos SDK. Collaborate with enterprises and organizations to understand their specific requirements and explore how the Cosmos SDK can be tailored to address their needs effectively.
+
+\section{Evaluation of the Cosmos SDK for Private Blockchain Development}
+
+The Cosmos SDK has proven to be a highly capable framework for the development of private blockchains. Its modular architecture, rich set of components, and flexible design enable developers to create customized and scalable blockchain applications. The SDK's support for various consensus mechanisms, including the \gls{bft} consensus used by default, offers a balance between security and performance.
+
+The use of protobuf and \gls{grpc} in modeling the state, defining messages, and implementing queries provides a structured and efficient approach to interact with the blockchain. The Multistore and IAVL tree enable efficient storage and retrieval of data, while the transaction and query system offers flexibility in modifying and retrieving information.
+
+However, it is important to note that the suitability of the Cosmos SDK for private blockchain development depends on the specific requirements of the application. Organizations considering the adoption of the Cosmos SDK should carefully evaluate factors such as scalability, security, interoperability, and usability to ensure that it aligns with their needs.
