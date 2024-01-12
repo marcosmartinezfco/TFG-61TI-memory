@@ -75,6 +75,13 @@ By leveraging Protobuf for defining these data structures, the Cosmos SDK ensure
 
 State management is a core aspect of any blockchain application. In the context of crowdfunding, the state represents the current condition of all projects, investments, and transactions on the platform. The Cosmos SDK's multistore structure allows each module to manage its part of the state, leading to enhanced modularity and maintainability.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{figures/multistore.png}
+    \caption{Application's state}
+    \label{fig:application-multistore}
+\end{figure}
+
 \paragraph{Transaction Handling}
 \label{par:transaction-handling}
 
@@ -101,9 +108,9 @@ The Cosmos SDK allows for the definition of custom transaction types to suit spe
     \item \textbf{CreateProject:} Initiates the creation of a new crowdfunding project, specifying details like project sponsor, funding target, and project stages.
     \item \textbf{InvestorBuyIn:} Enables investors to contribute funds to a project, marking their stake in the crowdfunding venture.
     \item \textbf{ChangeState:} Alters the state of a project, such as moving it from active to funded, or from funded to completed.
-    \item \textbf{MoneyIn & MoneyOut:} Manages the flow of funds into and out of the project, ensuring proper allocation and distribution.
-    \item \textbf{SponsorCancel & SponsorAccept:} Used by project sponsors to either cancel a project in its early stages or accept funding upon reaching the target.
-    \item \textbf{AdminAdd & AdminDelete:} Administering the platform by adding or removing administrators or project managers.
+    \item \textbf{MoneyIn \& MoneyOut:} Manages the flow of funds into and out of the project, ensuring proper allocation and distribution.
+    \item \textbf{SponsorCancel \& SponsorAccept:} Used by project sponsors to either cancel a project in its early stages or accept funding upon reaching the target.
+    \item \textbf{AdminAdd \& AdminDelete:} Administering the platform by adding or removing administrators or project managers.
     \item \textbf{NextStage:} Progresses the project through its different stages, ensuring milestones are met before proceeding.
     \item \textbf{ShareProfit:} Distributes profits or returns to investors based on their contributions once the project generates revenue.
     \item \textbf{UpdateDraftProject:} Modifies details of a project that is still in its draft phase.
@@ -145,12 +152,12 @@ The Cosmos SDK offers a structured approach to implementing transactions, which 
 
     \item \textbf{Implementing the CLI Command:}
     \begin{itemize}
-        \item Once the transaction message is defined, the next step is to implement the corresponding Command Line Interface (CLI) command.
+        \item Once the transaction message is defined, the next step is to implement the corresponding \gls{cli} command.
         \item This command allows users to interact with the blockchain application and execute transactions from the command line.
         \item The implementation involves coding the logic that will take user inputs, validate them, and construct the transaction message based on these inputs.
-        \item The CLI command typically includes error handling and may have additional logic for transaction fees, signing, and broadcasting the transaction to the network.
+        \item The \gls{cli} command typically includes error handling and may have additional logic for transaction fees, signing, and broadcasting the transaction to the network.
     \end{itemize}
-
+\newpage
     \item \textbf{Coding the Keeper Function:}
     \begin{itemize}
         \item The keeper function is responsible for updating the state of the blockchain based on the transaction.
@@ -174,6 +181,7 @@ The `CreateProject` transaction plays a pivotal role in the crowdfunding platfor
 
 The first step in implementing the `CreateProject` transaction is defining its structure using Protocol Buffers (Protobuf). Protobuf is a language-neutral, platform-neutral, extensible way of serializing structured data, making it ideal for this purpose.
 
+\newpage
 \begin{lstlisting}[language=go, caption=CreateProject protobuf definition, label={lst:create_project_proto}]
 message MsgCreateProject {
   string                 sponsor = 1;
@@ -187,10 +195,12 @@ The `MsgCreateProject` message encapsulates all necessary data for creating a pr
 \subsubsection{Implementing the CLI Command}
 \label{subsubsec:cli-createproject}
 
-The next phase involves implementing the Command Line Interface (CLI) command. This command facilitates interaction with the blockchain, allowing users to initiate a `CreateProject` transaction.
+The next phase involves implementing the \gls{cli} command. This command facilitates interaction with the blockchain, allowing users to initiate a `CreateProject` transaction.
+
+The \gls{cli} command, as shown is Lst~\ref{lst:create-project-cli-implementation}, provides a user-friendly way to submit the `CreateProject` transaction. It includes error checking and handles user inputs, converting them into the Protobuf message format.
 
 \newpage
-\begin{lstlisting}[language=go, caption=CreateProject CLI protobuf definition, label={lst:create-project-cli}]
+\begin{lstlisting}[language=go, caption=CreateProject CLI protobuf definition, label={lst:create-project-cli-implementation}]
 func CmdCreateProject() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-project [target] [stages]",
@@ -225,12 +235,10 @@ func CmdCreateProject() *cobra.Command {
 }
 \end{lstlisting}
 
-The CLI command, as shown above, provides a user-friendly way to submit the `CreateProject` transaction. It includes error checking and handles user inputs, converting them into the Protobuf message format.
-
 \subsubsection{Backend Processing}
 \label{subsubsec:backend-createproject}
 
-Upon receiving a `CreateProject` transaction request, either through the CLI or a gRPC call, the Cosmos SDK's backend processes it. The transaction message is first validated, ensuring all required fields are provided and meet the necessary criteria.
+Upon receiving a `CreateProject` transaction request, either through the \gls{cli} or a gRPC call, the Cosmos SDK's backend processes it. The transaction message is first validated, ensuring all required fields are provided and meet the necessary criteria.
 
 \begin{verbatim}
 $ daemonNamed tx appName create-project --sponsor "Project Sponsor" \
@@ -342,7 +350,7 @@ This keeper function checks if the project is in a draft state, validates the up
 \subsubsection{CLI Command for Updating Draft Projects}
 \label{subsubsec:cli-update-draft}
 
-To facilitate user interaction with the blockchain for updating projects, a CLI command is provided, simplifying the process of initiating the \texttt{UpdateDraftProject} transaction.
+To facilitate user interaction with the blockchain for updating projects, a \gls{cli} command is provided, simplifying the process of initiating the \texttt{UpdateDraftProject} transaction.
 
 \newpage
 \begin{lstlisting}[language=go, caption=Create Project CLI definition, label={lst:update-draft-cli}]
@@ -390,7 +398,7 @@ This CLI command allows users to specify the project ID, updated target, and rev
 \subsubsection{Executing the Transaction}
 \label{subsubsec:executing-update-draft}
 
-The execution of the \texttt{UpdateDraftProject} transaction can be done via the Cosmos SDK CLI or through a gRPC call. The CLI command example is as follows:
+The execution of the \texttt{UpdateDraftProject} transaction can be done via the Cosmos SDK \gls{cli} or through a gRPC call. The CLI command example is as follows:
 
 \begin{verbatim}
 $ daemonNamed tx appName update-draft-project --project-id "idNumber" \
@@ -402,4 +410,378 @@ This command line initiates the transaction, sending the updated project details
 
 The \texttt{UpdateDraftProject} transaction is an essential feature of the crowdfunding platform, offering flexibility and control during the project's initial development phase. It ensures that projects can evolve and refine their details before entering the active fundraising stage, thereby enhancing the platform's adaptability and responsiveness to changing needs and feedback.
 
+\subsection{Investor Participation Transaction}
+\label{subsec:investor-participation}
+
+The \texttt{InvestorBuyIn} transaction is fundamental in the crowdfunding platform, enabling investors to financially contribute to projects of their interest. This transaction marks the investor's entry into the project, signifying their commitment and expectation of potential returns.
+
+\subsubsection{Protobuf Message for InvestorBuyIn}
+\label{subsubsec:protobuf-investor-buyin}
+
+The transaction's structure is defined using Protobuf, which ensures a clear and efficient representation of the necessary data for an investor's participation.
+
+\begin{lstlisting}[language=go, caption=InvestorBuyIn protobuf definition, label={lst:investor_buyin_proto}]
+message MsgInvestorBuyIn {
+  string                           investor = 1;
+  uint64                           projectId = 2;
+  cosmos.base.v1beta1.Coin         amount    = 3 [(gogoproto.nullable) = false];
+}
+\end{lstlisting}
+
+This Protobuf message includes the investor's address, the project ID they wish to invest in, and the amount of their investment.
+
+\subsubsection{Processing Investor Contributions}
+\label{subsubsec:processing-investor-contributions}
+
+Upon initiation of an \texttt{InvestorBuyIn} transaction, the platform processes the investor's contribution, ensuring that it adheres to the project's requirements and investment rules.
+
+\subsubsection{Implementing the Keeper Function for InvestorBuyIn}
+\label{subsubsec:keeper-investor-buyin}
+
+The keeper function is responsible for validating and processing the \texttt{InvestorBuyIn} transaction, updating the project's state with the new investment details.
+
+\begin{lstlisting}[language=go, caption=Keeper implementation for Investor Buy-in, label={lst:keeper_investor_buyin}]
+func (k msgServer) InvestorBuyIn(goCtx context.Context, msg *types.MsgInvestorBuyIn) (*types.MsgInvestorBuyInResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	var investor = types.Investor{
+		Address: msg.Investor,
+		Equity:  msg.Amount,
+	}
+	appendedAddr, err := k.AppendInvestorBuyIn(ctx, msg.ProjectId, investor)
+	if err != nil {
+		return &types.MsgInvestorBuyInResponse{}, err
+	}
+	return &types.MsgInvestorBuyInResponse{
+		InvestorAddr: appendedAddr,
+	}, nil
+}
+
+func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.Investor) (string, error) {
+	if investor.Equity.Amount.Equal(sdk.ZeroInt()) {
+		return "", types.ErrCoinZeroAmount
+	}
+	project, found := k.getProjectId(ctx, id)
+	if !found {
+		return "", types.ErrProjectNotFound
+	}
+	if project.State != types.ProjectStateActive {
+		return "", types.ErrProjectNotActive
+	}
+	if strings.Compare(project.Target.Denom, investor.Equity.Denom) != 0 {
+		return "", types.ErrCoinDiffDenom
+	}
+	if project.Target.Sub(project.Current).IsLT(investor.Equity) {
+		return "", types.ErrOverFunded
+	}
+	addr, err := sdk.AccAddressFromBech32(investor.Address)
+	if err != nil {
+		return "", err
+	}
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, addr, types.ModuleName, sdk.NewCoins(investor.Equity)); err != nil {
+		return "", err
+	}
+	project.Investors = appendInvestor(project.Investors, &investor)
+	project.Current = project.Current.Add(investor.Equity)
+	if project.Target.IsEqual(project.Current) {
+		project.State = types.ProjectStatePending
+		types.EmitEvent(ctx, types.EventTypeProjectPending, project.Id, investor.Address)
+	} else {
+		types.EmitEvent(ctx, types.EventTypeProjectInvested, project.Id, investor.Address)
+	}
+	k.saveProject(ctx, &project)
+	return investor.Address, nil
+}
+\end{lstlisting}
+
+This function ensures that the investment is correctly recorded and allocated to the specified project, updating the project's current funding status and the investor's stake.
+
+\subsubsection{CLI Command for Investor Participation}
+\label{subsubsec:cli-investor-participation}
+
+A \gls{cli} command is provided to facilitate the investor's interaction with the blockchain, enabling them to execute the \texttt{InvestorBuyIn} transaction seamlessly.
+
+\begin{lstlisting}[language=go, caption=Investor Buy-in CLI Definition, label={lst:investor-buyin-cli}]
+func CmdInvestorBuyIn() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "investor-buy-in [project-id] [amount]",
+		Short: "Broadcast message investor-buy-in",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argProjectId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			argAmount, err := sdk.ParseCoinNormalized(args[1])
+			if err != nil {
+				return err
+			}
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgInvestorBuyIn(
+				clientCtx.GetFromAddress().String(),
+				argProjectId,
+				argAmount,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
+}
+\end{lstlisting}
+
+Through this command, investors can specify the project they wish to invest in and the amount of their contribution, simplifying the investment process.
+
+\subsubsection{Executing the InvestorBuyIn Transaction}
+\label{subsubsec:executing-investor-buyin}
+
+Investors can execute the \texttt{InvestorBuyIn} transaction via the Cosmos SDK \gls{cli} or through a gRPC request. The CLI command example is as follows:
+
+\begin{verbatim}
+$ daemonNamed tx appName investor-buy-in --project-id "projectId" \
+    --amount "investmentAmount"
+\end{verbatim}
+
+This command facilitates the transaction process, marking the investor's financial entry into the selected project.
+
+The \texttt{InvestorBuyIn} transaction plays a vital role in the crowdfunding ecosystem, enabling a direct and transparent channel for investors to support projects. It epitomizes the decentralized and participant-driven nature of blockchain-based crowdfunding, offering an efficient and secure mechanism for investment activities.
+
+\subsection{Transitioning Project States}
+\label{subsec:transitioning-project-states}
+
+The \texttt{ChangeState} transaction is essential for managing the lifecycle of crowdfunding projects, allowing administrators to update the state of a project at critical junctures.
+
+The transition from the `draft` stage to the `active` stage marks the activation of a project on the private blockchain for crowdfunding. During the `active` stage, the project becomes open for investment, allowing investors to participate and contribute funds.
+
+\subsubsection{Protobuf Message for ChangeState}
+\label{subsubsec:protobuf-change-state}
+
+This transaction is defined using a Protobuf message, specifying the necessary details for altering the project's state.
+
+The message includes the project ID, the desired new state, and the identity of the user initiating the change.
+
+\begin{lstlisting}[language=go, caption=ChangeState protobuf definition, label={lst:change_state_proto_implementation}]
+message MsgChangeState {
+  string                        creator   = 1;
+  uint64                        projectId = 2;
+  string                        newState  = 3;
+}
+\end{lstlisting}
+
+\subsubsection{Implementing the Keeper Function for ChangeState}
+\label{subsubsec:keeper-change-state}
+
+The keeper function ensures that the \texttt{ChangeState} transaction adheres to the platform's rules and correctly updates the project's status.
+
+\begin{lstlisting}[language=go, caption=Keeper implementation for ChangeState, label={lst:keeper_change_state}]
+func (k msgServer) ChangeState(goCtx context.Context, msg *types.MsgChangeState) (*types.MsgChangeStateResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	if !k.IsAdminAccount(ctx, msg.Creator) {
+		return nil, types.ErrNotAdminAccount
+	}
+	projectId, err := k.changeProjectState(ctx, msg.NewState, msg.ProjectId)
+	if err != nil {
+		return &types.MsgChangeStateResponse{}, err
+	}
+	return &types.MsgChangeStateResponse{
+		ProjectId: projectId,
+	}, nil
+}
+\end{lstlisting}
+
+This function validates the transaction, checks the authority of the initiator, and applies the state change to the project.
+
+\subsubsection{CLI Command for Project State Transition}
+\label{subsubsec:cli-project-state-transition}
+
+A \gls{cli} command is provided for users to conveniently execute the \texttt{ChangeState} transaction.
+
+\begin{lstlisting}[language=go, caption=Change State CLI Definition, label={lst:change-state-cli}]
+func CmdChangeState() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "change-state [project-id] [new-state]",
+		Short: "Broadcast message change-state",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argProjectId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			argNewState := args[1]
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgChangeState(
+				clientCtx.GetFromAddress().String(),
+				argProjectId,
+				argNewState,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
+}
+\end{lstlisting}
+
+Through this command, users can specify the project ID and the new state, facilitating a smooth transition process.
+
+\subsubsection{Executing the ChangeState Transaction}
+\label{subsubsec:executing-change-state}
+
+The execution of the \texttt{ChangeState} transaction can be performed via the Cosmos SDK \gls{cli} or through a gRPC request, as shown in the following command example:
+
+\begin{verbatim}
+$ daemonNamed tx appName change-state --project-id "projectId" \
+    --state "active"
+\end{verbatim}
+
+This command enables users to transition the state of a project, reflecting its progression or completion in the crowdfunding platform.
+
+The \texttt{ChangeState} transaction plays a pivotal role in managing the dynamics of crowdfunding projects. It facilitates the evolution of projects through different stages, ensuring that each transition is recorded and managed effectively within the blockchain environment.
+
+
+\subsection{Distributing Profits with the ShareProfit Transaction}
+\label{subsec:share-profit}
+
+The \texttt{ShareProfit} transaction marks a critical juncture in the lifecycle of a crowdfunding project, embodying the transition from successful project execution to the rewarding phase of profit distribution. This transaction plays a pivotal role, enabling project sponsors to distribute earned profits to investors transparently and equitably. It signifies the fulfillment of the investment promise, where investors see the tangible returns of their contributions. In the context of blockchain-enabled crowdfunding, the \texttt{ShareProfit} transaction exemplifies how technology can instill a new level of trust and transparency in financial dealings.
+
+This transaction leverages the inherent strengths of blockchain technology (immutability, transparency, and traceability) to ensure that profit distribution is conducted with utmost integrity. The ability to track and verify profit distribution on the blockchain revolutionizes the traditional approach to investment returns, offering an unprecedented level of clarity and accountability. This not only fortifies investor trust but also heralds a new era in financial interactions, characterized by enhanced security and fairness. The \texttt{ShareProfit} transaction thus stands as a beacon of the transformative potential of blockchain technology in reshaping the financial landscape, particularly in the crowdfunding sector where trust and transparent financial management are of the utmost importance.
+
+\subsubsection{Protobuf Message for ShareProfit}
+\label{subsubsec:protobuf-share-profit}
+
+The Protobuf message for the \texttt{ShareProfit} transaction includes the necessary details for processing profit distribution.
+
+\begin{lstlisting}[language=go, caption=ShareProfit protobuf definition, label={lst:share_profit_proto}]
+message MsgShareProfit {
+  string       creator   = 1;
+  uint64       project_id = 2;
+  cosmos.base.v1beta1.Coin amount    = 3 [(gogoproto.nullable) = false];
+}
+\end{lstlisting}
+
+This message typically encompasses the project identifier, the amount of profit to be distributed, and other relevant details to ensure a fair distribution of profits.
+
+\subsubsection{Implementing the Keeper Function for ShareProfit}
+\label{subsubsec:keeper-share-profit}
+
+The keeper function for \texttt{ShareProfit} is responsible for calculating and distributing profits to investors based on their contributions.
+
+\begin{lstlisting}[language=go, caption=Keeper implementation for ShareProfit, label={lst:keeper_share_profit}]
+func (k msgServer) ShareProfit(goCtx context.Context, msg *types.MsgShareProfit) (*types.MsgShareProfitResponse, error) {
+  ctx := sdk.UnwrapSDKContext(goCtx)
+  if strings.Compare(msg.Amount.Denom, "rbs") != 0 {
+    return nil, types.ErrInvalidDenom
+  }
+  projectId, err := k.shareProfit(ctx, msg.ProjectId, msg.Amount, msg.Creator)
+  if err != nil {
+    return nil, err
+  }
+  return &types.MsgShareProfitResponse{
+    ProjectId: projectId,
+  }, nil
+}
+func (k Keeper) shareProfit(ctx sdk.Context, projectId uint64, profit sdk.Coin, signer string) (uint64, error) {
+	project, found := k.getProjectId(ctx, projectId)
+	if !found {
+		return 0, types.ErrProjectNotFound
+	}
+	if strings.Compare(project.Sponsor, signer) != 0 {
+		return 0, types.ErrNotProjectSponsor
+	}
+	if len(project.Investors) == 0 {
+		return 0, types.ErrNoInvestors
+	}
+	sponsor, err := sdk.AccAddressFromBech32(project.Sponsor)
+	if err != nil {
+		return 0, err
+	}
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, sponsor, types.ModuleName, sdk.NewCoins(profit)); err != nil {
+		return 0, err
+	}
+	for _, investor := range project.Investors {
+		addr, err := sdk.AccAddressFromBech32(investor.Address)
+		if err != nil {
+			return 0, err
+		}
+		var equity = profit.Amount.Mul(
+			investor.Equity.Amount.Mul(sdkmath.NewInt(100)).Quo(
+				project.Target.Amount)).Quo(
+			sdkmath.NewInt(100))
+		if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, addr, sdk.NewCoins(sdk.NewCoin("rbs", equity))); err != nil {
+			return 0, err
+		}
+		investor.Profit += equity.Int64()
+	}
+	k.saveProject(ctx, &project)
+	return project.Id, nil
+}
+\end{lstlisting}
+
+This function takes into account the amount of profit, investor stakes, and other factors to allocate profits accurately and securely.
+
+\subsubsection{CLI Command for ShareProfit}
+\label{subsubsec:cli-share-profit}
+
+The CLI command for executing the \texttt{ShareProfit} transaction is provided to enable easy interaction with the blockchain.
+
+\newpage
+\begin{lstlisting}[language=go, caption=Share Profit CLI Definition, label={lst:share-profit-cli}]
+func CmdShareProfit() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "share-profit [project-id] [amount]",
+		Short: "Broadcast message share-profit",
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argProjectId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			argAmount, err := sdk.ParseCoinNormalized(args[1])
+			if err != nil {
+				return err
+			}
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			msg := types.NewMsgShareProfit(
+				clientCtx.GetFromAddress().String(),
+				argProjectId,
+				argAmount,
+			)
+			if err := msg.ValidateBasic(); err != nil {
+				return err
+			}
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
+}
+\end{lstlisting}
+
+Through this command, project sponsors can initiate the profit-sharing process, ensuring that investors receive their due returns.
+
+\subsubsection{Executing the ShareProfit Transaction}
+\label{subsubsec:executing-share-profit}
+
+To execute the \texttt{ShareProfit} transaction, sponsors use the Cosmos SDK CLI or a gRPC request. An example command could be:
+
+\begin{verbatim}
+$ daemonNamed tx appName share-profit --project-id "idNumber" \
+    --amount "1000TOKENNAME"
+\end{verbatim}
+
+This command facilitates the distribution of profits to investors, reflecting the project's success and the investors' trust in it.
 
