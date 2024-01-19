@@ -1,10 +1,9 @@
 \chapter{Case Study: Private Blockchain for Crowdfunding}
-\label{chapter:case-study}
 
 In this case study, we explore the implementation of a private blockchain for crowdfunding using the Cosmos SDK. This approach is particularly relevant in the current technological landscape, where blockchain technology significantly impacts various industries, offering innovative paradigms for secure, decentralized transactions and data management. Crowdfunding, a popular method for raising capital, stands to benefit greatly from the advantages offered by blockchain technology, such as enhanced transparency, security, and efficiency.
 
 \subsection{Relevance and Objectives}
-\label{subsec:relevance-objectives}
+
 The objectives of this case study are as follows:
 \begin{itemize}
     \item To demonstrate the practical application of blockchain technology in a crowdfunding context, underscoring the advantages over traditional methods.
@@ -14,7 +13,6 @@ The objectives of this case study are as follows:
 
 This case study seeks to bridge theoretical concepts with practical application, offering a tangible example of how blockchain technology can be applied innovatively in real-world scenarios.
 \subsection{Cosmos SDK in Crowdfunding}
-\label{subsec:cosmos-sdk-in-crowdfunding}
 
 Crowdfunding represents a unique application for blockchain technology, where the principles of decentralization, transparency, and security are paramount. Utilizing the Cosmos SDK for a private blockchain in a crowdfunding context offers several distinct advantages:
 
@@ -29,12 +27,10 @@ Crowdfunding represents a unique application for blockchain technology, where th
 In the following sections, we will explore the implementation aspects of a crowdfunding platform using the Cosmos SDK, focusing on the design, development, and operation of key features in line with the requirements of crowdfunding activities.
 
 \subsubsection{Project Setup and State Modeling}
-\label{subsubsec:project-setup-and-state-modeling}
 
 The initial phase in developing a crowdfunding platform with the Cosmos SDK involves setting up the project structure and modeling the state. This process lays the foundation for how the blockchain will manage and store data related to crowdfunding activities.
 
 \paragraph{Defining the Data Model}
-\label{par:defining-the-data-model}
 
 In a crowdfunding context, the state of the blockchain must accurately represent the dynamic relationships and activities between various entities such as projects, investors, and funding stages. The Cosmos SDK's flexibility in defining the data model is crucial for capturing the multifaceted nature of crowdfunding projects. This flexibility allows for the creation of tailored entities that reflect the specific needs and structures inherent in crowdfunding platforms.
 
@@ -71,7 +67,6 @@ message Stage {
 By leveraging Protobuf for defining these data structures, the Cosmos SDK ensures consistency, efficiency, and the ability to evolve the data model as the platform grows. This approach not only enhances the blockchain's data integrity but also ensures that it can adapt to the changing needs of crowdfunding activities.
 
 \paragraph{State Management}
-\label{par:state-management}
 
 State management is a core aspect of any blockchain application. In the context of crowdfunding, the state represents the current condition of all projects, investments, and transactions on the platform. The Cosmos SDK's multistore structure allows each module to manage its part of the state, leading to enhanced modularity and maintainability.
 
@@ -83,24 +78,20 @@ State management is a core aspect of any blockchain application. In the context 
 \end{figure}
 
 \paragraph{Transaction Handling}
-\label{par:transaction-handling}
 
 Transactions in the crowdfunding platform are actions that change the state, such as creating a new project, investing in a project, or distributing funds. Each transaction type is defined with its validation logic, ensuring that only valid changes are applied to the state. The Cosmos SDK facilitates the creation of these transactions, handling the lifecycle from initiation to inclusion in the blockchain.
 
 \paragraph{Query System}
-\label{par:query-system}
 
 A robust query system is essential for a crowdfunding platform, enabling users to retrieve information about projects and investments. The Cosmos SDK supports a flexible query interface, allowing users to interact with the blockchain's state efficiently. Queries can be made for specific projects, funding stages, and investment details, providing transparency and accessibility to platform participants.
 
 In the next sections, we delve deeper into the implementation of these components, illustrating how the Cosmos SDK is utilized to build a comprehensive crowdfunding solution.
 
 \section{Transaction Types and Their Implementation}
-\label{sec:transaction-types-implementation}
 
 In a crowdfunding platform developed with the Cosmos SDK, transactions play a pivotal role in facilitating various operations and interactions within the ecosystem. These transactions represent different actions that can be performed by users, such as creating new projects, investing in projects, or distributing returns. This section delves into the types of transactions that are fundamental to the crowdfunding platform and their implementation using the Cosmos SDK.
 
 \subsection{Defining Transaction Types}
-\label{subsec:defining-transaction-types}
 
 The Cosmos SDK allows for the definition of custom transaction types to suit specific application needs. In the context of a crowdfunding platform, several transaction types are essential:
 
@@ -138,7 +129,6 @@ service Msg {
 \end{lstlisting}
 
 \subsubsection{General Process for Implementing Transactions in Cosmos SDK}
-\label{subsubsec:general-transaction-implementation}
 
 The Cosmos SDK offers a structured approach to implementing transactions, which is crucial for maintaining the integrity and functionality of a blockchain application. The general process can be outlined in the following steps:
 
@@ -172,12 +162,10 @@ Following this structured process ensures that each transaction type is correctl
 In the following sections, we will be implementing different transaction, providing detailed insights into each step of the process for a comprehensive understanding.
 
 \subsection{Implementation of the CreateProject Transaction}
-\label{subsec:implementation-createproject}
 
 The `CreateProject` transaction plays a pivotal role in the crowdfunding platform, enabling the initiation of new projects. Its implementation in the Cosmos SDK involves a series of well-defined steps, each contributing to the robust functionality of the transaction. This section details the engineering process behind the `CreateProject` transaction.
 
 \subsubsection{Defining the Protobuf Message}
-\label{subsubsec:protobuf-createproject}
 
 The first step in implementing the `CreateProject` transaction is defining its structure using Protocol Buffers (Protobuf). Protobuf is a language-neutral, platform-neutral, extensible way of serializing structured data, making it ideal for this purpose.
 
@@ -193,7 +181,6 @@ message MsgCreateProject {
 The `MsgCreateProject` message encapsulates all necessary data for creating a project, such as the sponsor's name, target funding amount, and the project stages. Each field is carefully chosen to capture the essential attributes of a crowdfunding project.
 
 \subsubsection{Implementing the CLI Command}
-\label{subsubsec:cli-createproject}
 
 The next phase involves implementing the \gls{cli} command. This command facilitates interaction with the blockchain, allowing users to initiate a `CreateProject` transaction.
 
@@ -236,7 +223,6 @@ func CmdCreateProject() *cobra.Command {
 \end{lstlisting}
 
 \subsubsection{Backend Processing}
-\label{subsubsec:backend-createproject}
 
 Upon receiving a `CreateProject` transaction request, either through the \gls{cli} or a gRPC call, the Cosmos SDK's backend processes it. The transaction message is first validated, ensuring all required fields are provided and meet the necessary criteria.
 
@@ -249,7 +235,6 @@ $ daemonNamed tx appName create-project --sponsor "Project Sponsor" \
 This command, as illustrated, is an example of how users can initiate the `CreateProject` transaction using the Cosmos SDK CLI.
 
 \subsubsection{Keeper Function Implementation}
-\label{subsubsec:keeper-createproject}
 
 The keeper function is where the transaction's logic is executed. This function updates the state of the blockchain with the new project's information.
 
@@ -282,12 +267,10 @@ Following the successful creation of a project, an event is emitted. This event 
 
 
 \subsection{Updating Draft Projects}
-\label{subsec:updating-draft-projects}
 
 Projects in the crowdfunding platform, upon their initial creation, are in a \texttt{draft} state. This status indicates that the project details are preliminary and subject to revisions. The \texttt{UpdateDraftProject} transaction plays a crucial role in this phase, allowing authorized users to modify essential project attributes like target funding and project stages.
 
 \subsubsection{Protobuf Message for UpdateDraftProject}
-\label{subsubsec:protobuf-update-draft-project}
 
 The structure of the \texttt{UpdateDraftProject} transaction is defined using Protobuf, ensuring a consistent and efficient data representation.
 
@@ -304,12 +287,10 @@ message MsgUpdateDraftProject {
 This Protobuf message includes fields for the project's unique identifier, updated target funding, and revised stages, capturing the essential elements for updating a draft project.
 
 \subsubsection{Authorizing Updates}
-\label{subsubsec:authorizing-updates}
 
 Modification of a project's details requires appropriate authorization. The \texttt{UpdateDraftProject} transaction ensures that only authorized individuals, typically the project sponsor, can make changes to the project in its draft state.
 
 \subsubsection{Implementing the Keeper Function}
-\label{subsubsec:keeper-update-draft}
 
 The keeper function is at the core of processing the \texttt{UpdateDraftProject} transaction. It validates the transaction, checks for authorization, and applies the updates to the project's state.
 
@@ -348,7 +329,6 @@ func (k Keeper) updateDraftProjectInfo(ctx sdk.Context, projectId uint64, target
 This keeper function checks if the project is in a draft state, validates the updates against the existing project structure, and then commits the changes to the blockchain.
 
 \subsubsection{CLI Command for Updating Draft Projects}
-\label{subsubsec:cli-update-draft}
 
 To facilitate user interaction with the blockchain for updating projects, a \gls{cli} command is provided, simplifying the process of initiating the \texttt{UpdateDraftProject} transaction.
 
@@ -396,7 +376,6 @@ func CmdUpdateDraftProject() *cobra.Command {
 This CLI command allows users to specify the project ID, updated target, and revised stages, streamlining the process of modifying a draft project.
 
 \subsubsection{Executing the Transaction}
-\label{subsubsec:executing-update-draft}
 
 The execution of the \texttt{UpdateDraftProject} transaction can be done via the Cosmos SDK \gls{cli} or through a gRPC call. The CLI command example is as follows:
 
@@ -411,12 +390,10 @@ This command line initiates the transaction, sending the updated project details
 The \texttt{UpdateDraftProject} transaction is an essential feature of the crowdfunding platform, offering flexibility and control during the project's initial development phase. It ensures that projects can evolve and refine their details before entering the active fundraising stage, thereby enhancing the platform's adaptability and responsiveness to changing needs and feedback.
 
 \subsection{Investor Participation Transaction}
-\label{subsec:investor-participation}
 
 The \texttt{InvestorBuyIn} transaction is fundamental in the crowdfunding platform, enabling investors to financially contribute to projects of their interest. This transaction marks the investor's entry into the project, signifying their commitment and expectation of potential returns.
 
 \subsubsection{Protobuf Message for InvestorBuyIn}
-\label{subsubsec:protobuf-investor-buyin}
 
 The transaction's structure is defined using Protobuf, which ensures a clear and efficient representation of the necessary data for an investor's participation.
 
@@ -431,12 +408,10 @@ message MsgInvestorBuyIn {
 This Protobuf message includes the investor's address, the project ID they wish to invest in, and the amount of their investment.
 
 \subsubsection{Processing Investor Contributions}
-\label{subsubsec:processing-investor-contributions}
 
 Upon initiation of an \texttt{InvestorBuyIn} transaction, the platform processes the investor's contribution, ensuring that it adheres to the project's requirements and investment rules.
 
 \subsubsection{Implementing the Keeper Function for InvestorBuyIn}
-\label{subsubsec:keeper-investor-buyin}
 
 The keeper function is responsible for validating and processing the \texttt{InvestorBuyIn} transaction, updating the project's state with the new investment details.
 
@@ -496,7 +471,6 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 This function ensures that the investment is correctly recorded and allocated to the specified project, updating the project's current funding status and the investor's stake.
 
 \subsubsection{CLI Command for Investor Participation}
-\label{subsubsec:cli-investor-participation}
 
 A \gls{cli} command is provided to facilitate the investor's interaction with the blockchain, enabling them to execute the \texttt{InvestorBuyIn} transaction seamlessly.
 
@@ -538,7 +512,6 @@ func CmdInvestorBuyIn() *cobra.Command {
 Through this command, investors can specify the project they wish to invest in and the amount of their contribution, simplifying the investment process.
 
 \subsubsection{Executing the InvestorBuyIn Transaction}
-\label{subsubsec:executing-investor-buyin}
 
 Investors can execute the \texttt{InvestorBuyIn} transaction via the Cosmos SDK \gls{cli} or through a gRPC request. The CLI command example is as follows:
 
@@ -552,14 +525,12 @@ This command facilitates the transaction process, marking the investor's financi
 The \texttt{InvestorBuyIn} transaction plays a vital role in the crowdfunding ecosystem, enabling a direct and transparent channel for investors to support projects. It epitomizes the decentralized and participant-driven nature of blockchain-based crowdfunding, offering an efficient and secure mechanism for investment activities.
 
 \subsection{Transitioning Project States}
-\label{subsec:transitioning-project-states}
 
 The \texttt{ChangeState} transaction is essential for managing the lifecycle of crowdfunding projects, allowing administrators to update the state of a project at critical junctures.
 
 The transition from the `draft` stage to the `active` stage marks the activation of a project on the private blockchain for crowdfunding. During the `active` stage, the project becomes open for investment, allowing investors to participate and contribute funds.
 
 \subsubsection{Protobuf Message for ChangeState}
-\label{subsubsec:protobuf-change-state}
 
 This transaction is defined using a Protobuf message, specifying the necessary details for altering the project's state.
 
@@ -574,7 +545,6 @@ message MsgChangeState {
 \end{lstlisting}
 
 \subsubsection{Implementing the Keeper Function for ChangeState}
-\label{subsubsec:keeper-change-state}
 
 The keeper function ensures that the \texttt{ChangeState} transaction adheres to the platform's rules and correctly updates the project's status.
 
@@ -597,7 +567,6 @@ func (k msgServer) ChangeState(goCtx context.Context, msg *types.MsgChangeState)
 This function validates the transaction, checks the authority of the initiator, and applies the state change to the project.
 
 \subsubsection{CLI Command for Project State Transition}
-\label{subsubsec:cli-project-state-transition}
 
 A \gls{cli} command is provided for users to conveniently execute the \texttt{ChangeState} transaction.
 
@@ -636,7 +605,6 @@ func CmdChangeState() *cobra.Command {
 Through this command, users can specify the project ID and the new state, facilitating a smooth transition process.
 
 \subsubsection{Executing the ChangeState Transaction}
-\label{subsubsec:executing-change-state}
 
 The execution of the \texttt{ChangeState} transaction can be performed via the Cosmos SDK \gls{cli} or through a gRPC request, as shown in the following command example:
 
@@ -651,14 +619,12 @@ The \texttt{ChangeState} transaction plays a pivotal role in managing the dynami
 
 
 \subsection{Distributing Profits with the ShareProfit Transaction}
-\label{subsec:share-profit}
 
 The \texttt{ShareProfit} transaction marks a critical juncture in the lifecycle of a crowdfunding project, embodying the transition from successful project execution to the rewarding phase of profit distribution. This transaction plays a pivotal role, enabling project sponsors to distribute earned profits to investors transparently and equitably. It signifies the fulfillment of the investment promise, where investors see the tangible returns of their contributions. In the context of blockchain-enabled crowdfunding, the \texttt{ShareProfit} transaction exemplifies how technology can instill a new level of trust and transparency in financial dealings.
 
 This transaction leverages the inherent strengths of blockchain technology (immutability, transparency, and traceability) to ensure that profit distribution is conducted with utmost integrity. The ability to track and verify profit distribution on the blockchain revolutionizes the traditional approach to investment returns, offering an unprecedented level of clarity and accountability. This not only fortifies investor trust but also heralds a new era in financial interactions, characterized by enhanced security and fairness. The \texttt{ShareProfit} transaction thus stands as a beacon of the transformative potential of blockchain technology in reshaping the financial landscape, particularly in the crowdfunding sector where trust and transparent financial management are of the utmost importance.
 
 \subsubsection{Protobuf Message for ShareProfit}
-\label{subsubsec:protobuf-share-profit}
 
 The Protobuf message for the \texttt{ShareProfit} transaction includes the necessary details for processing profit distribution.
 
@@ -673,7 +639,6 @@ message MsgShareProfit {
 This message typically encompasses the project identifier, the amount of profit to be distributed, and other relevant details to ensure a fair distribution of profits.
 
 \subsubsection{Implementing the Keeper Function for ShareProfit}
-\label{subsubsec:keeper-share-profit}
 
 The keeper function for \texttt{ShareProfit} is responsible for calculating and distributing profits to investors based on their contributions.
 
@@ -731,7 +696,6 @@ func (k Keeper) shareProfit(ctx sdk.Context, projectId uint64, profit sdk.Coin, 
 This function takes into account the amount of profit, investor stakes, and other factors to allocate profits accurately and securely.
 
 \subsubsection{CLI Command for ShareProfit}
-\label{subsubsec:cli-share-profit}
 
 The CLI command for executing the \texttt{ShareProfit} transaction is provided to enable easy interaction with the blockchain.
 
@@ -774,7 +738,6 @@ func CmdShareProfit() *cobra.Command {
 Through this command, project sponsors can initiate the profit-sharing process, ensuring that investors receive their due returns.
 
 \subsubsection{Executing the ShareProfit Transaction}
-\label{subsubsec:executing-share-profit}
 
 To execute the \texttt{ShareProfit} transaction, sponsors use the Cosmos SDK CLI or a gRPC request. An example command could be:
 
@@ -785,3 +748,311 @@ $ daemonNamed tx appName share-profit --project-id "idNumber" \
 
 This command facilitates the distribution of profits to investors, reflecting the project's success and the investors' trust in it.
 
+
+\section{Query System in Crowdfunding Platform}
+
+The query system in a blockchain-based crowdfunding platform is a crucial component, providing the necessary transparency and accessibility for users to interact effectively with the platform. It allows users to retrieve information from the blockchain's state, making the platform user-friendly and transparent. Queries can range from simple data requests, like retrieving the details of a specific project or investor, to more complex queries involving the aggregation or filtering of data across multiple projects or transactions.
+
+\subsection{Importance of the Query System}
+
+A robust query system is vital for several reasons:
+\begin{itemize}
+    \item \textbf{Transparency:} It ensures that the activities within the crowdfunding platform are transparent to all stakeholders, enhancing trust in the platform.
+    \item \textbf{Accessibility:} Provides easy access to information, making the platform user-friendly and accommodating a wide range of user interactions.
+    \item \textbf{Efficiency:} Facilitates quick and efficient retrieval of specific data, improving the overall user experience.
+    \item \textbf{Compliance:} Helps in adhering to regulatory requirements by allowing auditable trails of transactions and activities.
+\end{itemize}
+
+\subsection{Exposing Query API in Cosmos SDK}
+
+The Cosmos SDK provides a versatile and efficient approach to exposing the query API, crucial for interacting with the blockchain's state. This exposure is primarily facilitated through two methods: gRPC endpoints and REST endpoints via the gRPC gateway.
+
+\subsubsection{Utilizing gRPC Endpoints}
+
+gRPC, a high-performance \gls{rpc} framework developed by Google, is extensively used in Cosmos SDK to create a robust query API. gRPC endpoints in the Cosmos SDK offer a powerful method for external services and applications to interact with the blockchain. These endpoints enable efficient and structured data retrieval, making them suitable for integration with various systems.
+
+\subsubsection{REST Endpoints via gRPC Gateway}
+
+In addition to gRPC, the Cosmos SDK leverages the gRPC gateway to provide RESTful APIs. This approach allows for the automatic generation of REST endpoints based on gRPC services, offering a more accessible and familiar interface for web-based applications and services. This dual offering of gRPC and REST endpoints ensures flexibility and broad compatibility with diverse client requirements.
+
+\subsubsection{Defining Query RPC Services}
+
+The definition of Query \gls{rpc} services is a critical aspect of the query system in the Cosmos SDK. These services form the interface through which users and applications can request specific data from the blockchain. Below there is listing illustrating the structure of our Query RPC service definition.
+
+\newpage
+\begin{lstlisting}[language=go, caption=Query RPC Services Definition, label={lst:query_rpc_services_definition}]
+service Query {
+  
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/therealblock/params";
+  }
+  
+  rpc ListProjects (QueryListProjectsRequest) returns (QueryListProjectsResponse) {
+    option (google.api.http).get = "/therealblock/listprojects";
+  }
+  
+  rpc GetProject (QueryGetProjectRequest) returns (QueryGetProjectResponse) {
+    option (google.api.http).get = "/therealblock/getproject/{id}";
+  
+  }
+  
+  rpc ListAdmins (QueryListAdminsRequest) returns (QueryListAdminsResponse) {
+    option (google.api.http).get = "/therealblock/listadmins";
+  
+  }
+  
+  rpc GetProjectStage (QueryGetProjectStageRequest) returns (QueryGetProjectStageResponse) {
+    option (google.api.http).get = "/therealblock/projectstage/{projectId}";
+  }
+}
+\end{lstlisting}
+
+\subsection{Swagger API Definition Generation}
+
+A Swagger, or OpenAPI v3, specification file is exposed under the /swagger route on the API server. Swagger is an open specification describing the API endpoints a server serves, including description, input arguments, return types and much more about each endpoint. This feature is particularly useful for those who prefer a graphical representation of APIs or are working in environments where RESTful API interaction is more common.
+
+\subsection{ListProjects Query}
+
+The `ListProjects` query in a crowdfunding blockchain application is essential for providing users with a comprehensive view of available projects for investment. It allows potential investors to browse through various projects, facilitating informed decision-making. This functionality is crucial for the business model of the application, as it directly impacts user engagement and investment activities. It provides essential information that helps investors make informed choices and supports project creators in gaining visibility for their initiatives. The efficient and user-friendly presentation of project information is key to maintaining a dynamic and engaging crowdfunding environment.
+
+\subsubsection{Protobuf Definition}
+
+The Protobuf definition for the `ListProjects` query outlines the structure of the request and response for this query. It ensures a standardized and efficient way of communicating project data between the client and server.
+
+
+\begin{lstlisting}[language=go, caption={Protobuf Definition for List Projects Query}]
+message QueryListProjectsRequest {
+  cosmos.base.query.v1beta1.PageRequest           pagination = 1;
+}
+message QueryListProjectsResponse {
+  repeated Project                                projects   = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse          pagination = 2;
+}
+\end{lstlisting}
+
+\subsubsection{Keeper Implementation}
+
+The Keeper implementation involves the logic to retrieve and organize the list of projects from the blockchain's state. It ensures that the query fetches up-to-date and accurate information about each project, which is critical for maintaining the integrity and reliability of the crowdfunding platform while providing pagination features so that projects can be processes seamlessly by the consumers.
+
+\begin{lstlisting}[language=go, caption={Keeper Implementation for List Projects Query}]
+func (k Keeper) ListProjects(goCtx context.Context, req *types.QueryListProjectsRequest) (*types.QueryListProjectsResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	var projects []types.Project
+	postStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	pageRes, err := query.Paginate(postStore, req.Pagination, func(key []byte, value []byte) error {
+		var project types.Project
+		if err := k.cdc.Unmarshal(value, &project); err != nil {
+			return err
+		}
+		projects = append(projects, project)
+		return nil
+	})
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &types.QueryListProjectsResponse{
+		Projects:   projects,
+		Pagination: pageRes,
+	}, nil
+}
+\end{lstlisting}
+
+\subsubsection{CLI Command Implementation}
+
+The CLI command for the `ListProjects` query allows users to execute this query directly from the command line. This implementation details the command syntax and interaction with the Keeper.
+
+
+\begin{lstlisting}[language=go, caption={CLI Command Implementation for List Projects Query}]
+func CmdListProjects() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "list-projects",
+		Short: "Query list-projects",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				return err
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			params := &types.QueryListProjectsRequest{}
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+			params.Pagination = pageReq
+			res, err := queryClient.ListProjects(cmd.Context(), params)
+			if err != nil {
+				return err
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	flags.AddQueryFlagsToCmd(cmd)
+	return cmd
+}
+\end{lstlisting}
+
+\notebox{
+    All the queries shown in this paper can be either be triggered through the CLI or using the gRPC/REST endpoints.
+}
+
+\subsection{GetProject Query}
+
+The `GetProject` query is a critical feature in a blockchain-based crowdfunding application, enabling users to retrieve detailed information about a specific project. This query is vital for investors who wish to delve deeper into the specifics of a project they are considering for investment, and for project creators to highlight the details and progress of their initiatives.
+
+The ability to access detailed information about a single project is essential for a transparent and trustworthy crowdfunding environment. It allows investors to make well-informed decisions based on comprehensive project data, such as the project's goals, current funding status, and future plans. For project creators, this feature serves as a platform to showcase their project in detail, attract potential investors, and provide updates to existing stakeholders.
+
+\subsubsection{Protobuf Definition}
+
+The Protobuf definition for the `GetProject` query specifies the structure of the request and response necessary for retrieving detailed information about a particular project.
+
+\begin{lstlisting}[language=go, caption={Protobuf Definition for GetProject Query}]
+message QueryGetProjectRequest {
+  uint64    id = 1;
+}
+message QueryGetProjectResponse {
+  Project   project = 1 [(gogoproto.nullable) = false];
+}
+\end{lstlisting}
+
+\subsubsection{Keeper Implementation}
+
+The Keeper implementation for this query is responsible for fetching and returning the specific details of the requested project from the blockchain's state. This implementation ensures accuracy and timeliness of the data presented to users.
+
+\begin{lstlisting}[language=go, caption={Keeper Implementation for GetProject Query}]
+func (k Keeper) GetProject(goCtx context.Context, req *types.QueryGetProjectRequest) (*types.QueryGetProjectResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	project, found := k.getProjectId(ctx, req.Id)
+	if !found {
+		return nil, sdkerrors.ErrKeyNotFound
+	}
+	return &types.QueryGetProjectResponse{
+		Project: project,
+	}, nil
+}
+\end{lstlisting}
+
+
+\subsection{GetProjectStage Query}
+
+The `GetProjectStage` query is a vital feature of a blockchain-based crowdfunding platform, enabling stakeholders to ascertain the current developmental stage of a project. This functionality is crucial for both investors considering project backing and developers seeking to update stakeholders on project progress.
+
+This query provides a transparent view of a project's progression, key for maintaining trust and engagement within the crowdfunding community. Investors rely on this information to make informed decisions, tracking the project's adherence to its roadmap. For developers, it's a tool to showcase progress, potentially attracting further investment and support.
+
+\subsubsection{Protobuf Definition}
+
+The Protobuf definition for the "GetProjectStage" query delineates the format for requests and responses regarding a project's current stage.
+
+
+\begin{lstlisting}[language=go, caption={Protobuf Definition for GetProjectStage Query}]
+message QueryGetProjectStageRequest {
+  uint64 projectId = 1;
+}
+message QueryGetProjectStageResponse {
+  Stage stage = 1 [(gogoproto.nullable) = false];
+}
+\end{lstlisting}
+
+\subsubsection{Keeper Implementation}
+
+The Keeper's implementation in this query is to fetch and relay precise stage data for a given project from the blockchain's state.
+
+\begin{lstlisting}[language=go, caption={Keeper Implementation for GetProjectStage Query}]
+func (k Keeper) GetProjectStage(goCtx context.Context, req *types.QueryGetProjectStageRequest) (*types.QueryGetProjectStageResponse, error) {
+	if req == nil {
+		return nil, status.Error(codes.InvalidArgument, "invalid request")
+	}
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	stage, err := k.getStageInfo(ctx, req.ProjectId)
+	if err != nil {
+		return nil, err
+	}
+	return &types.QueryGetProjectStageResponse{
+		Stage: stage,
+	}, nil
+}
+func (k Keeper) getStageInfo(ctx sdk.Context, projectId uint64) (types.Stage, error) {
+	project, found := k.getProjectId(ctx, projectId)
+	if !found {
+		return types.Stage{}, types.ErrProjectNotFound
+	}
+	if strings.Compare(project.State, types.ProjectStateFunded) == 0 ||
+		strings.Compare(project.State, types.ProjectStateCompleted) == 0 {
+		var aux = project.Target
+		for _, stage := range project.Stages {
+			aux = aux.Sub(stage.Allocation)
+			if aux.Equal(project.Current) {
+				return types.Stage{
+					Name:       stage.Name,
+					Allocation: stage.Allocation,
+				}, nil
+			}
+		}
+	}
+	return types.Stage{}, types.ErrProjectNotFunded
+}
+\end{lstlisting}
+
+\subsubsection{CLI Command Implementation}
+
+The CLI command for the "GetProjectStage" query allows users to request information about a project's stage through a simple command line interface.
+
+
+\begin{lstlisting}[language=go, caption={CLI Command Implementation for GetProjectStage Query}]
+/func CmdGetProjectStage() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "get-project-stage [project-id]",
+		Short: "Query get-project-stage",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			reqProjectId, err := cast.ToUint64E(args[0])
+			if err != nil {
+				return err
+			}
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				return err
+			}
+			queryClient := types.NewQueryClient(clientCtx)
+			params := &types.QueryGetProjectStageRequest{
+				ProjectId: reqProjectId,
+			}
+			res, err := queryClient.GetProjectStage(cmd.Context(), params)
+			if err != nil {
+				return err
+			}
+			return clientCtx.PrintProto(res)
+		},
+	}
+	flags.AddQueryFlagsToCmd(cmd)
+	return cmd
+}
+\end{lstlisting}
+
+\section{Conclusion}
+
+In this thesis, we have explored a practical use case of blockchain technology in the form of a crowdfunding application developed using the Cosmos SDK. This application demonstrates the seamless integration of various transactions and queries that form the essential workflow, or the 'happy path', of a typical crowdfunding platform.
+
+The crowdfunding application we've developed is a robust system where each component plays a crucial role in its operation. The workflow begins with the creation of a project draft, allowing developers to conceptualize and outline their projects. This phase is crucial for laying the foundation of a potential crowdfunding campaign.
+
+Once the project draft is filled with all necessary information, the project is taken live, marking the transition from an idea to a potential investment opportunity. This phase is where the application begins to interact with a broader audience, including potential investors.
+
+Investors then have the opportunity to buy into these projects, signifying their trust and support. This stage is vital for the accumulation of the required capital to turn the project's vision into reality.
+
+As the project progresses, the ability to move forward through predefined stages and share updates on the platform is essential for maintaining transparency and trust among investors. This progression is vital for the project's lifecycle and investor engagement.
+
+Upon the successful completion of the project, the platform facilitates the distribution of profits to investors, fulfilling the final promise of the crowdfunding campaign.
+
+\subsection{Blockchain as the Backbone}
+
+At the heart of this application is blockchain technology, which offers a transparent, immutable, and secure ledger. This underlying technology ensures that every transaction and update is recorded, providing a clear trail of the project's journey from conception to completion. The use of blockchain in this context not only enhances the security and trustworthiness of the platform but also introduces a new level of accountability and transparency in crowdfunding.
+
+The Cosmos SDK stands out as an exemplary framework for this application, providing the necessary tools and flexibility for building a customized blockchain solution. Its modular design allows developers to focus on the application's business logic without getting entangled in low-level blockchain infrastructure details. However, it also offers the ability to delve into more granular, low-level configurations when necessary, providing a balance between simplicity and customization.
+
+In conclusion, the crowdfunding application on the Cosmos SDK is a testament to the power and versatility of blockchain technology. It provides an innovative platform for bringing ideas to life, offering a streamlined, transparent, and secure avenue for project funding. This application not only showcases the potential of blockchain in transforming traditional crowdfunding models but also highlights the Cosmos SDK's capabilities in facilitating such innovations. Through this application, we've demonstrated a practical implementation of blockchain, making it accessible and applicable for real-world scenarios in the crowdfunding domain.
