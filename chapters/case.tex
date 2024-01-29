@@ -70,6 +70,18 @@ By leveraging Protobuf for defining these data structures, the Cosmos SDK ensure
 
 State management is a core aspect of any blockchain application. In the context of crowdfunding, the state represents the current condition of all projects, investments, and transactions on the platform. The Cosmos SDK's multistore structure allows each module to manage its part of the state, leading to enhanced modularity and maintainability.
 
+A critical element in the state management system of the Cosmos SDK is the concept of the 'keeper'. In each module, the keeper acts as a guardian or manager of the module's state, as shown in Img~\ref{fig:application-multistore}. It is responsible for interfacing with the module's Key-Value store (KVStore), a datastore that holds the state of the module. The keeper, through a set of predefined APIs, provides a secure and controlled access to the KVStore, ensuring that only authorized operations can be performed on the module's state.
+
+The keeper's role is multifaceted:
+
+\begin{itemize}
+    \item \textbf{Access Control:} It enforces access control, determining which parts of the state can be accessed or modified by other modules.
+    \item \textbf{Data Encapsulation:} The keeper helps in encapsulating the internal state of a module, exposing only necessary information to other modules, thereby maintaining data integrity and security.
+    \item \textbf{State Interaction:} It facilitates interactions with the state, such as querying, updating, or deleting records related to the crowdfunding projects and investments.
+\end{itemize}
+
+In essence, the keeper in Cosmos modules plays a vital role in state management by safeguarding the keys to access the KVStore. This mechanism not only secures the data but also aligns with the modular architecture of the Cosmos SDK, where each module operates as an independent yet integral part of the overall application, maintaining its distinct state and logic.
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.45]{figures/multistore.png}
@@ -107,7 +119,7 @@ The Cosmos SDK allows for the definition of custom transaction types to suit spe
     \item \textbf{UpdateDraftProject:} Modifies details of a project that is still in its draft phase.
 \end{itemize}
 
-Each of these transaction types is implemented as a specific gRPC endpoint, as shown in Listing \ref{lst:gRPC-endpoints}. This structure not only brings clarity to the various operations possible within the crowdfunding platform but also ensures that each transaction is handled efficiently and securely within the Cosmos SDK framework.
+Each of these transaction types is implemented as a specific \gls{grpc} endpoint, as shown in Listing \ref{lst:gRPC-endpoints}. This structure not only brings clarity to the various operations possible within the crowdfunding platform but also ensures that each transaction is handled efficiently and securely within the Cosmos SDK framework.
 
 The combination of well-defined transactions and efficient gRPC endpoints enables the crowdfunding platform to function seamlessly, providing a robust and user-friendly experience for both project creators and investors. This approach exemplifies the Cosmos SDK's versatility in handling diverse transaction types, a critical aspect for the success of any blockchain-based application.
 
@@ -224,7 +236,7 @@ func CmdCreateProject() *cobra.Command {
 
 \subsubsection{Backend Processing}
 
-Upon receiving a `CreateProject` transaction request, either through the \gls{cli} or a gRPC call, the Cosmos SDK's backend processes it. The transaction message is first validated, ensuring all required fields are provided and meet the necessary criteria.
+Upon receiving a `CreateProject` transaction request, either through the \gls{cli} or a \gls{grpc} call, the Cosmos SDK's backend processes it. The transaction message is first validated, ensuring all required fields are provided and meet the necessary criteria.
 
 \begin{verbatim}
 $ daemonNamed tx appName create-project --sponsor "Project Sponsor" \
@@ -377,7 +389,7 @@ This CLI command allows users to specify the project ID, updated target, and rev
 
 \subsubsection{Executing the Transaction}
 
-The execution of the \texttt{UpdateDraftProject} transaction can be done via the Cosmos SDK \gls{cli} or through a gRPC call. The CLI command example is as follows:
+The execution of the \texttt{UpdateDraftProject} transaction can be done via the Cosmos SDK \gls{cli} or through a \gls{grpc} call. The CLI command example is as follows:
 
 \begin{verbatim}
 $ daemonNamed tx appName update-draft-project --project-id "idNumber" \
