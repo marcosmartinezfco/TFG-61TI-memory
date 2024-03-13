@@ -5,11 +5,14 @@ In this chapter, we delve into the architecture of the Cosmos SDK, its modular c
 
 \section{High-level Overview}
 
-The Cosmos SDK, an open-source framework, is instrumental in developing both permissioned \gls{poa} blockchains, like the Cosmos Hub\cite{cosmos-hub}, and multi-asset public \gls{pos} blockchains. The term "application-specific blockchain" is commonly used to describe blockchains crafted using the Cosmos SDK.
+The Cosmos SDK is an open-source framework designed to facilitate the creation of blockchain applications. Distinguished by its support for building application-specific blockchains, the Cosmos SDK departs from the traditional blockchain development model, which often relies on a single blockchain to support a wide range of applications. Instead, it provides the tools necessary for developers to construct bespoke blockchains tailored to the unique requirements of their specific applications. This capability is particularly evident in its role in creating both permissioned \gls{poa} and multi-asset public \gls{pos} blockchains, including notable implementations like the Cosmos Hub\cite{cosmos-hub}.
 
-This approach diverges significantly from traditional virtual machine-based blockchains. Here, developers have full autonomy to make architectural decisions to optimize their application’s efficiency, performance, and security within a blockchain environment tailored for a single, specific use case. This flexibility is depicted in Listing~\ref{lst:app-based-blockchain}, highlighting the enhanced performance, security, and sovereignty achievable with application-specific blockchains.
+In contrast to traditional blockchains that utilize a universal virtual machine to execute a variety of smart contracts, the Cosmos SDK adopts a modular design. This architectural choice gives developers the flexibility to select and configure the components of their blockchain system. By enabling the customization of consensus mechanisms, governance models, and other blockchain parameters, the SDK allows for the optimization of each blockchain's efficiency, performance, and security. This emphasis on modularity and customization reflects a broader trend in blockchain development toward accommodating the diverse needs of different applications. The benefits of this approach, including improved performance and enhanced security measures, are illustrated in Listing~\ref{lst:app-based-blockchain}, which highlights the potential for achieving greater control and specificity in blockchain design using the Cosmos SDK\cite{kwon2019cosmos}.
 
-\newpage
+The Cosmos SDK's approach also introduces significant advancements in blockchain interoperability and scalability. It aims to establish an interconnected ecosystem of blockchains, often referred to as the "Internet of Blockchains"~\cite{kwon2019cosmos}. This vision addresses a critical challenge in the blockchain community—the tendency for blockchains to operate in isolation, limiting their ability to interact and share information with one another. By promoting a structure that facilitates blockchain interconnectivity, the Cosmos SDK not only enhances the utility of individual blockchain projects but also contributes to a more cohesive and functional global blockchain landscape.
+
+This introduction seeks to elucidate the core principles and capabilities of the Cosmos SDK. It underscores the framework's departure from traditional blockchain models towards a more flexible, application-specific approach. By doing so, the Cosmos SDK offers a powerful toolset for developers looking to leverage blockchain technology's benefits in a way that is closely aligned with their project's unique demands and objectives.
+
 \begin{lstlisting}[language=bash, caption=Application based blockchains. Source:\cite{app-based-blockchain},label={lst:app-based-blockchain}]
                 ^  +-------------------------------+  ^
                 |  |                               |  |   Cosmos SDK
@@ -28,7 +31,7 @@ Blockchain node |  |           Consensus           |  |
 
 \section{Architecture}
 
-Fundamentally, a blockchain functions as a replicated deterministic state machine. When provided with an initial state \(S\) and a transaction \(T\), it generates a new state \(S'\), as illustrated in Listing \ref{lst:state-transition}.
+Fundamentally, a blockchain functions as a replicated deterministic state machine as we saw in the previous chapter. When provided with an initial state \(S\) and a transaction \(T\), it generates a new state \(S'\), as illustrated in Listing \ref{lst:state-transition}.
 
 \begin{lstlisting}[language=bash, caption=State machine transition. Source:\cite{app-based-blockchain},label={lst:state-transition}]
                 +--------+                 +--------+
@@ -48,7 +51,7 @@ To enhance processing efficiency, transactions are grouped into blocks. The stat
             +--------+                              +--------+
 \end{lstlisting}
 
-The Cosmos SDK empowers developers with extensive flexibility in defining their application's state, transaction types, and the processes for state transition. We will further explore how to construct state machines using the Cosmos SDK, starting with an analysis of how CometBFT facilitates state machine replication.
+The Cosmos SDK empowers developers with extensive flexibility in defining their application's state, transaction types, and the processes for state transition. We will further explore how to construct state machines using the Cosmos SDK in following sections.
 
 \subsection{CometBFT}
 
@@ -91,11 +94,11 @@ Through \gls{abci}, the consensus engine and the application interact seamlessly
 \section{Applications Architecture}
 \label{ch:applicatoins-architecture}
 
-The Cosmos SDK's modular and decoupled architecture is a cornerstone of its design, enabling developers to focus primarily on application logic. The framework's 'baseApp' serves as a basic template, implementing necessary methods for routing transactions to different modules and facilitating communication with the CometBFT engine via \gls{abci} methods.
+The Cosmos SDK provides a robust framework for blockchain application development, focusing on a modular and decoupled architecture. This design principle is crucial, allowing developers to concentrate on the application logic while the Cosmos SDK handles underlying functionalities. The \texttt{baseApp} acts as a fundamental template, routing transactions to various modules and facilitating communication with the CometBFT engine through \gls{abci} methods.
 
-Modules in the Cosmos SDK act like smaller state machines within the larger blockchain state machine. They define both a segment of the state and specific message types. The 'BaseApp' routes these messages, and the modules interpret them using protobuf definitions, translating byte transactions managed by CometBFT into actionable application logic.
+Modules within the Cosmos SDK serve as mini state machines within the overarching blockchain ecosystem, defining segments of the state and specific message types. The \texttt{baseApp} efficiently routes these messages to the appropriate modules, which then use Protobuf definitions to interpret these messages, turning byte transactions managed by CometBFT into actionable logic for applications.
 
-Fig \ref{fig:application-modules} illustrates the general architecture of the application layer. Here, the Cosmos SDK's core handles the essential connections and module composition, while custom modules developed using the SDK implement the primary functionalities of the application.
+As illustrated in Figure \ref{fig:application-modules}, the Cosmos SDK's architecture showcases the application layer's general structure. The SDK's core manages essential connections and module composition, setting the stage for developers to implement custom modules. These modules, developed using the SDK, enact the application's primary functionalities, demonstrating the SDK's capacity to support sophisticated blockchain application development.
 
 \begin{figure}[H]
     \centering
@@ -103,3 +106,28 @@ Fig \ref{fig:application-modules} illustrates the general architecture of the ap
     \caption{Application architecture}
     \label{fig:application-modules}
 \end{figure}
+
+This architectural approach offers several benefits. It promotes functionality encapsulation, making applications easier to develop, maintain, and scale. Moreover, it enhances applications' interoperability and scalability built with the Cosmos SDK, as modules can be interchanged, updated, or extended without impacting the system's overall integrity. Additionally, this modular design encourages a collaborative development environment, where shared modules and best practices accelerate the blockchain application development process.
+
+
+\section{Cosmos SDK Approach to Smart Contracts}
+\label{sec:cosmos-sdk-smart-contracts}
+
+The Cosmos SDK offers a distinctive framework for smart contracts, which contrasts with the \gls{evm} based model in several key aspects. This approach fundamentally alters the development experience, addressing some of the challenges inherent in the \gls{evm} model while providing developers with greater flexibility and efficiency.
+
+\subsection{Comparison with EVM-based Smart Contracts}
+\label{subsec:comparison-with-evm}
+
+\gls{evm} based smart contracts are executed within a global, deterministic virtual machine, ensuring that contracts run identically on every node of the network. This model offers predictability and a high degree of security through immutability; once deployed, the code of a smart contract cannot be altered. However, this immutability also presents significant challenges. For instance, any bugs or vulnerabilities in the code are permanent and can lead to security risks or loss of funds with no direct path for correction.
+
+In contrast, the Cosmos SDK does not rely on a universal virtual machine for contract execution. Instead, it enables the creation of application-specific blockchains, where smart contracts are integrated as part of the blockchain protocol itself. This architecture allows for contracts to be upgraded or modified as part of the chain's governance process, providing a more flexible approach to managing and improving contract logic over time.
+
+\subsection{Improvements in Development Experience}
+\label{subsec:improvements-in-development}
+
+The Cosmos SDK framework significantly improves the smart contract development experience through its modular architecture and flexibility. Developers can build highly customized blockchains tailored to their application's specific needs. This modularity extends to smart contracts, where the logic can be encapsulated within modules that are easily upgradeable and interoperable with other blockchains in the Cosmos ecosystem.
+
+One of the primary advantages of this approach is the ability to fix bugs or update smart contract logic without the need for complex and risky migration strategies. Since contracts are part of the blockchain protocol, updates can be proposed, voted on, and implemented through the chain's governance mechanism. This approach not only enhances security but also enables continuous improvement and adaptation of contract functionality to meet evolving requirements.
+
+Furthermore, the Cosmos SDK's focus on interoperability through the \gls{ibc} protocol opens up new possibilities for smart contracts to interact across different blockchains. This capability enables a more connected and efficient blockchain ecosystem, where contracts can leverage resources, assets, and functionalities from various chains.
+

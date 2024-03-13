@@ -5,7 +5,7 @@ In this section, we will walk through all the organizational aspects related to 
 
 \section{Configuration Management}
 
-Configuration management can be defined as a process that ensures the consistency and quality of a project/product through its life cycle and the various changes it undergoes. Sometimes the term is mistaken for version control, but in fact configuration management includes version control.
+Configuration management can be defined as a process that ensures the consistency and quality of a project/product through its life cycle and the various changes it undergoes. Sometimes the term is mistaken for version control, but in fact configuration management includes version control~\cite{hammond2012version}.
 
 In this subsection we will talk about the different technologies and tools that have been used in order to keep a decent control of configuration management.
 
@@ -15,13 +15,13 @@ As mentioned above, version control is a part of configuration management and is
 
 For this project Git has been the clear option since it is the market leader due to its huge speed and its branch and merge functionality, among others. Taken from its website \enquote{Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency}.
 
-GitHub is essentially a remote repository hosting platform for Git. It allows developers to work together on the same project from anywhere.
+GitHub is essentially a remote repository hosting platform for Git. It allows developers to work together on the same project from anywhere~\cite{chacon2014pro}.
 
 \subsection{Git Workflow}
 
 A Git workflow is a template for how to use git to accomplish work in a consistent and productive manner. Git is extremely flexible when it comes to managing changes, so there is no imposed or standardized process. When working with a team on a project, it is important to make sure that the entire team is familiar with how changes will be applied. 
 
-Gitflow has been chosen for this project because of its versatility and the ability to generate branches for each of the features needed for the project, Figure~\ref{fig:gitflow-example}. In our case, it will be extremely useful to be able to develop each of the modules/micro-services of the system in parallel.
+Gitflow has been chosen for this project because of its versatility and the ability to generate branches for each of the features needed for the project, Figure~\ref{fig:gitflow-example}. In our case, it will be extremely useful to be able to develop each of the modules/micro-services of the system in parallel~\cite{driessen2010successful}.
 
 \begin{figure}[H]
     \centering
@@ -32,7 +32,7 @@ Gitflow has been chosen for this project because of its versatility and the abil
 
 \section{CI/CD Workflows}
 
-One of the main goals during the design phase of this thesis is to have a high level of automation to be able to maintain all the different development processes related to micro-services. Luckily GitHub provides us with a powerful tool for creating custom workflow pipelines, called GitHub actions. These workflows must be located in a folder called \textbf{.github/workflows}, in the root of the repository in different "YAML" files.
+One of the main goals during the design phase of this thesis is to have a high level of automation to be able to maintain all the different development processes. Luckily GitHub provides us with a powerful tool for creating custom workflow pipelines, called GitHub actions. These workflows must be located in a folder called \textbf{.github/workflows}, in the root of the repository in different "YAML" files~\cite{github2020actions}.
 
 GitHub actions fees depend on computing time and the runner's \gls{os}. Runners are responsible for executing the different jobs specified in a workflow, Tab~\ref{tab:action-fees} shows the different prices.
 
@@ -110,3 +110,43 @@ steps:
     issue-message: 'message that will be displayed on users' first issue'
     pr-message: 'message that will be displayed on users' first pr'
 \end{lstlisting}
+
+\section{Application to Our Use Case}
+\label{sec:application-use-case}
+
+This section delineates how the methodologies discussed in this chapter are applied to our specific use case, which involves the development and deployment of blockchain nodes on \gls{aws}, managed and automated through GitHub actions. The aim is to elucidate the practical application of configuration management and \gls{cicd} workflows in the context of a blockchain-based project, ensuring a seamless and efficient development lifecycle.
+
+\subsection{Architecture Overview}
+
+The architecture of our project is designed to optimize performance, security, and scalability. The blockchain nodes, the backbone of our application, are hosted on \gls{aws}, providing robust and scalable cloud infrastructure. The codebase for the project resides on GitHub, which acts as the central repository for version control and collaboration among the development team.
+
+To visualize the integration and interaction between different components of our project, an architecture diagram is essential. Figure~\ref{fig:architecture-diagram} illustrates the overall architecture, focusing on high availability and high scalability of the service thanks to the \gls{alb} which supports the \gls{grpc} protocol natively.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/aws.png}
+    \caption{Overall Architecture Diagram}
+    \label{fig:architecture-diagram}
+\end{figure}
+
+\newpage
+\subsection{Deployment Sequence}
+The deployment workflow is a critical aspect of our project, ensuring that the latest codebase changes are automatically tested, built, and deployed to the AWS environment. This process is facilitated by GitHub Actions, which automates the workflow based on specific triggers, such as a push to the main branch or a pull request.
+
+A detailed diagram of the deployment workflow helps in understanding the sequence of events from code commit to deployment. Figure~\ref{fig:deployment-workflow-diagram} depicts this workflow, including the steps taken by GitHub Actions to deploy the application onto \gls{aws}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sequence.png}
+    \caption{Deployment Workflow Diagram}
+    \label{fig:deployment-workflow-diagram}
+\end{figure}
+
+\subsection{Implementation Details}
+The implementation of our use case begins with committing code changes to the GitHub repository. These changes trigger predefined GitHub Actions workflows.
+
+The workflows include various jobs, such as linting, testing, building, and deploying. Each job is executed in an environment specified by the workflow, with most deployment tasks directed to self-hosted runners equipped to interact with \gls{aws} services. These runners use the OAuth protocol to authenticate against \gls{iam} in \gls{aws}, ensuring that the deployment process is both secure and efficient.
+
+Upon successful completion of the deployment job, the updated application is live, ready to be accessed by users. This automated workflow not only minimizes human error but also significantly accelerates the development lifecycle, allowing for rapid iteration and feedback.
+
+In conclusion, the application of configuration management and \gls{cicd} workflows to our use case exemplifies a modern, efficient, and scalable approach to software development and deployment. By leveraging industry-standard tools and practices, we ensure that our blockchain project remains at the forefront of technological advancements.

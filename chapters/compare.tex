@@ -11,29 +11,29 @@ Different consensus mechanisms offer varied approaches to achieve network agreem
 
 \subsection{Proof of Work (PoW)}
 
-\gls{pow}, pioneered by Bitcoin, is a consensus mechanism where network participants, or miners, compete to solve cryptographic puzzles. This process validates transactions and adds new blocks to the blockchain, with successful miners receiving cryptocurrency rewards.
+\gls{pow}, pioneered by Bitcoin, is a consensus mechanism where network participants, or miners, compete to solve cryptographic puzzles. This process validates transactions and adds new blocks to the blockchain, with successful miners receiving cryptocurrency rewards~\cite{nakamoto2008bitcoin}.
 
 While \gls{pow} is known for its robust security, it is not the primary consensus mechanism in the Cosmos SDK due to its high energy consumption and slower transaction processing times. The Cosmos SDK favors more efficient and scalable consensus mechanisms, aligning with its goal of creating interconnected, high-performance blockchain networks.
 
 \subsection{Proof of Stake (PoS)}
 
-\gls{pos} is a consensus algorithm where the probability of validating transactions and creating new blocks is proportional to a participant's stake in the network. Unlike \gls{pow}, it does not require extensive computational power, making it more energy-efficient and suitable for scalable networks.
+\gls{pos} is a consensus algorithm where the probability of validating transactions and creating new blocks is proportional to a participant's stake in the network. Unlike \gls{pow}, it does not require extensive computational power, making it more energy-efficient and suitable for scalable networks~\cite{king2012ppcoin}.
 
 The Cosmos SDK leverages variants of \gls{pos}, optimizing it for better performance and reduced energy consumption. This adaptation aligns with the SDK's emphasis on creating scalable and efficient blockchain networks.
 
 \subsection{Delegated Proof of Stake (DPoS)}
 
-\gls{dpos}, an evolution of \gls{pos}, allows token holders to elect delegates to validate transactions and maintain the blockchain. This mechanism is known for its high transaction throughput and efficiency.
+\gls{dpos}, an evolution of \gls{pos}, allows token holders to elect delegates to validate transactions and maintain the blockchain. This mechanism is known for its high transaction throughput and efficiency~\cite{larimer2014delegated}.
 
 The Cosmos SDK, with its modular design, can incorporate \gls{dpos} in its ecosystem, providing an efficient and scalable consensus option for networks that require fast transaction processing and high throughput.
 
 \subsection{Practical Byzantine Fault Tolerance (PBFT)}
 
-\gls{pbft} is designed for distributed systems and focuses on achieving consensus even in the presence of malicious nodes. The Cosmos SDK's version of PBFT, known as Tendermint Core, is a cornerstone of its architecture, offering a balance of efficiency, security, and scalability.
+\gls{pbft} is designed for distributed systems and focuses on achieving consensus even in the presence of malicious nodes. The Cosmos SDK's version of PBFT, known as Tendermint Core, is a cornerstone of its architecture, offering a balance of efficiency, security, and scalability~\cite{castro1999practical}.
 
 \subsection{Directed Acyclic Graph (DAG)}
 
-Although not a primary feature of the Cosmos SDK, \gls{dag} represents an innovative approach to consensus mechanisms, focusing on scalability and efficiency. As the Cosmos SDK continues to evolve, integrating \gls{dag} or similar mechanisms could enhance its capabilities in handling high-throughput and low-latency networks.
+Although not a primary feature of the Cosmos SDK, \gls{dag} represents an innovative approach to consensus mechanisms, focusing on scalability and efficiency. As the Cosmos SDK continues to evolve, integrating \gls{dag} or similar mechanisms could enhance its capabilities in handling high-throughput and low-latency networks~\cite{lewenberg2015inclusive}.
 
 \section{Conclusion}
 
